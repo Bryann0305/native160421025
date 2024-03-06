@@ -6,17 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import com.ubaya.adv160421025weeks2.databinding.FragmentGameBinding
-import com.ubaya.adv160421025weeks2.databinding.FragmentResultBinding
+import com.ubaya.adv160421025weeks2.databinding.FragmentMainBinding
 
-class resultFragment : Fragment() {
-    private lateinit var binding: FragmentResultBinding
+class MainFragment : Fragment() {
+    private lateinit var binding:FragmentMainBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentResultBinding.inflate(inflater,container,false)
+        // Inflate the layout for this fragment
+        binding = FragmentMainBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -24,15 +24,9 @@ class resultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(arguments != null) {
-            val score =
-                resultFragmentArgs.fromBundle(requireArguments()).score
-            binding.txtScore.text = "Your score is $score"
-        }
-
-
-        binding.btnMainScreen.setOnClickListener{
-            val action =  resultFragmentDirections.actionMainFragmentResult()
+        binding.btnStart.setOnClickListener{
+            val name = binding.txtName.text.toString()
+            val action =  MainFragmentDirections.actionGameFragment(name)
             Navigation.findNavController(it).navigate(action)
         }
     }
